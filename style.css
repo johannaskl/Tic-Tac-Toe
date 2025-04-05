@@ -4,6 +4,17 @@ body {
     background-color:cadetblue;
 }
 
+.dark-mode {
+    background-color: #353333;
+    color: aliceblue;
+}
+
+.dark-mode-btn {
+    padding: 10px;
+    width: 150px;
+    height: auto;    
+}
+
 section {
     display: flex;
     flex-direction: column;
@@ -49,11 +60,16 @@ button {
     border: none;
     border-radius: 5px;
     color: #fff;
-    background-color: rgb(84, 151, 153);
+    background-color: rgb(111, 194, 197);
     cursor: pointer;
 }
 
 button:hover {
     transition: 0.25s;
     background-color: rgb(82, 124, 126);
+}
+
+.winning-cell {
+    background-color: #9cebdd;
+    transition: background-color 0.5s ease;
 }

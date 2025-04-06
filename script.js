@@ -1,104 +1,80 @@
-function myFunction() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
-}
+const toggleButton = document.getElementById('toggleMode');
+
+toggleButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+
 
 const statusDisplay = document.querySelector(".game-status");
 
 let gameActive = true;
-
 let currentPlayer = "X";
+let gameState = Array(9).fill("");
 
-let gameState = ["", "", "", "", "", "", "", "", ""];
+const messages = {
+  winning: () => `Spelare ${currentPlayer} har vunnit!`,
+  draw: () => "Spelet blev oavgjort!",
+  turn: () => `Det är ${currentPlayer} tur` 
+};
 
-const winningMessage = () => `Spelare ${currentPlayer} har vunnit!`;
-const drawMessage = () => `Spelet blev oavgjort!`;
-const currentPlayerTurn = () => `Det är ${currentPlayer} tur`;
+statusDisplay.innerHTML = messages.turn();
 
-statusDisplay.innerHTML = currentPlayerTurn();
-
-document.querySelectorAll(".cell").forEach((cell) => cell.addEventListener("click", handleCellClick));
+document.querySelectorAll(".cell").forEach(cell => {
+  cell.addEventListener("click", handleCellClick);
+})
 document.querySelector(".game-restart").addEventListener("click", handleRestartGame);
+
+const winningConditions = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8],
+  [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  [0, 4, 8], [2, 4, 6]
+];
 
 function handleCellClick(clickedCellEvent) {
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = parseInt(clickedCell.getAttribute("cell-index"));
 
-  if (gameState[clickedCellIndex] !== "" || !gameActive) {
-    return;
-  }
+  if (gameState[clickedCellIndex] !== "" || !gameActive) return;
 
-  handleCellPlayed(clickedCell, clickedCellIndex);
+  gameState[clickedCellIndex] = currentPlayer;
+  clickedCell.innerHTML = currentPlayer;
   handleResultValidation();
 }
 
-function handleCellPlayed(clickedCell, clickedCellIndex) {
-  gameState[clickedCellIndex] = currentPlayer;
-  clickedCell.innerHTML = currentPlayer;
-}
-
-const winningCondissions = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
-
 function handleResultValidation() {
   let roundWon = false;
-  let winningCombo = [];
-
-  for (let i = 0; i <= 7; i++) {
-    const winCondition = winningCondissions[i];
-    let a = gameState[winCondition[0]];
-    let b = gameState[winCondition[1]];
-    let c = gameState[winCondition[2]];
-    if (a === "" || b === "" || c === "") {
-      continue;
-    }
-    if (a === b && b === c) {
+  for (const condition of winningConditions) {
+    const [a, b, c] = condition.map(i => gameState[i]);
+    if (a && a === b && a === c) {
       roundWon = true;
-      winningCombo = winCondition;
+      condition.forEach(i => document.querySelector(`.cell[cell-index="${i}"]`).classList.add("winning-cell"));
       break;
     }
   }
+
   if (roundWon) {
-    winningCombo.forEach((index) => {
-      document.querySelector(`.cell[cell-index="${index}"]`).classList.add("winning-cell");
-    });
-
-    statusDisplay.innerHTML = winningMessage();
+    statusDisplay.innerHTML = messages.winning();
     gameActive = false;
     return;
   }
 
-  let roundDraw = !gameState.includes("");
-  if (roundDraw) {
-    statusDisplay.innerHTML = drawMessage();
+  if (!gameState.includes("")) {
+    statusDisplay.innerHTML = messages.draw();
     gameActive = false;
     return;
   }
 
-  handlePlayerchange();
-}
-
-function handlePlayerchange() {
-  currentPlayer = currentPlayer == "X" ? "O" : "X";
-  statusDisplay.innerHTML = currentPlayerTurn();
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  statusDisplay.innerHTML = messages.turn();
 }
 
 function handleRestartGame() {
   gameActive = true;
   currentPlayer = "X";
-  gameState = ["", "", "", "", "", "", "", "", ""];
-  statusDisplay.innerHTML = currentPlayerTurn();
-  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
-
-  document.querySelectorAll(".cell").forEach((cell) => {
+  gameState.fill("");
+  statusDisplay.innerHTML = messages.turn();
+  document.querySelectorAll(".cell").forEach(cell => {
     cell.innerHTML = "";
     cell.classList.remove("winning-cell");
   });

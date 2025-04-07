@@ -11,7 +11,7 @@ Du kan öppna projektet här: [Öppna webbplatsen](https://johannaskl.github.io/
 - Oavgjort hanteras
 - "Börja om"-knapp för nytt spel
 
-____________________________
+
 
 ## Om du vill köra projektet lokalt
 

@@ -2,10 +2,24 @@
 // Hämta elementet som används för att växla mellan mörkt och ljust läge
 const toggleButton = document.getElementById('toggleMode');
 
-// Lägg till eventlyssnare på knappen för att växla mellan lägen 
+// Funktion för att uppdatera knappens text och ikon
+function updateToggleButton() {
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  toggleButton.innerHTML = isDarkMode
+  ? 'Ljust läge <i class="bi bi-brightness-high"></i>'
+  : 'Mörkt läge <i class="bi bi-moon"></i>';
+}
+
+// Toggle dark mode och uppdaterea knappen
 toggleButton.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
+  updateToggleButton();
 });
+
+// Uppdatera kanppen när sidan laddas (default - ljust läge)
+updateToggleButton();
+
+
 
 
 // Hämta elementet där spelstatus visas

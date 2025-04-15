@@ -70,7 +70,31 @@ function handleCellClick(clickedCellEvent) {
 
   // Kontrollera om det finns en vinnare eller om det är oavgjort
   handleResultValidation();
+
+  // Om spelet fortfarande är aktivt och det är datorns tur
+  if (gameActive && currentPlayer === "O") {
+    setTimeout(computerMove, 300); // Vänta 0.3 sek för mer naturligt spel
+  }
 }
+
+
+//Datorn drag - välj en slupmässig ledig cell
+function computerMove() {
+  const availableCells = gameState
+    .map((value, index) => value === "" ? index : null)
+    .filter(index => index !== null);
+
+  if (availableCells.length === 0) return;
+
+  const randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+  const cell = document.querySelector(`.cell[cell-index="${randomIndex}"]`);
+
+  gameState[randomIndex] = "0";
+  cell.innerHTML = "0";
+
+  handleResultValidation();
+}
+
 
 // Funktion att kontrollera om spelet har en vinnande tillstånd eller om det är oavgjort
 function handleResultValidation() {

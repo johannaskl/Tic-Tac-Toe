@@ -1,15 +1,16 @@
 # Tic-Tac-Toe
 
-Välkommen till mitt Tic-Tac-Toe-projekt!
+Välkommen till mitt Tre i rad-projekt!
 
 Du kan öppna projektet här: [Öppna webbplatsen](https://johannaskl.github.io/Tic-Tac-Toe/)
 
 ## Funktioner
-- Spela två personer mot varandra (X och O)
+- Spela mot datorn - du är X, datorn spelar som O
+- Datorn gör smarta drag: försöker vinna, blockera dig eller väljer slumpmässigt
 - Växla mellan mörkt och ljust läge 
 - Automatisk vinstkontroll
-- Oavgjort hanteras
-- "Börja om"-knapp för nytt spel
+- Oavgjort hanteras korrekt
+- "Börja om"-knapp för att starta nytt spel
 
 
 

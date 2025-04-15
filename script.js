@@ -80,19 +80,51 @@ function handleCellClick(clickedCellEvent) {
 
 //Datorn drag - välj en slupmässig ledig cell
 function computerMove() {
+  //Lista på lediga cellers index
   const availableCells = gameState
     .map((value, index) => value === "" ? index : null)
     .filter(index => index !== null);
 
+  //Om inga lediga - avbryt
   if (availableCells.length === 0) return;
 
+  //1. Försök vinna (dator)
+  for (const condition of winningConditions) {
+    const [a, b, c] = condition;
+    const values = [gameState[a], gameState[b], gameState[c]];
+
+    //Om det finns två "O" och en tom, ta den tomma och vinnn
+    if (values.filter(v => v === "O").length === 2 && values.includes("")) {
+      const winIndex = condition[values.indexOf("")];
+      placeMove(winIndex, "O");
+      return;
+    }
+  }
+
+  //2. Blockera spelare (X) om den håller på att vinna
+  for (const condition of winningConditions) {
+    const [a, b, c] = condition;
+    const values = [gameState[a], gameState[b], gameState[c]];
+
+    // Om det finns två "X" och en tom, ta den tomma och blockera
+    if (values.filter(v => v === "X").length === 2 && values.includes("")) {
+      const blockIndex = condition[values.indexOf("")];
+      placeMove(blockIndex, "O");
+      return;
+    }  
+  }
+
+  //3. Annars ta slumpmässig ledig cell
   const randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-  const cell = document.querySelector(`.cell[cell-index="${randomIndex}"]`);
+  placeMove(randomIndex, "O");
 
-  gameState[randomIndex] = "0";
-  cell.innerHTML = "0";
-
-  handleResultValidation();
+  // Hjälpfunktion för att placera ett drag
+  function placeMove(index, player) {
+    gameState[index] = player;
+    const cell = document.querySelector(`.cell[cell-index="${index}"]`);
+    cell.innerHTML = player;
+    handleResultValidation();
+  }
 }
 
 

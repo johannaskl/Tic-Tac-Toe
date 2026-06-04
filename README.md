@@ -1,24 +1,24 @@
 # Tic-Tac-Toe
 
-Välkommen till mitt Tre i rad-projekt!
+Welcome to my Tic-Tac-Toe project!
 
-Du kan öppna projektet här: [Öppna webbplatsen](https://johannaskl.github.io/Tic-Tac-Toe/)
+You can view the project here: https://johannaskl.github.io/Tic-Tac-Toe/
 
-## Funktioner
-- Spela mot datorn - du är X, datorn spelar som O
-- Datorn gör smarta drag: försöker vinna, blockera dig eller väljer slumpmässigt
-- Växla mellan mörkt och ljust läge 
-- Automatisk vinstkontroll
-- Oavgjort hanteras korrekt
-- "Börja om"-knapp för att starta nytt spel
+## Functions
+- Play agains a computer. You are X, and the computer plays as O
+- The computer makes smart moves: it tries to win, block your moves, or choose a random move
+- Toggle between dark and light mode
+- Automatic win detection
+- Proper draw handling
+- "Börja om" button to start a new game
 
 
 
-## Om du vill köra projektet lokalt
+## Run the project locally
 
-### Kör med Live Server (VS Code)
+### Using the Live Server (VS Code)
 
-1. Klona projektet eller ladda ner som ZIP.
-2. Öppna projektmappen i **Visual Studio Code**.
-3. Installera tillägget **Live Server** om du inte redan har det.
-4. Högerklicka på `index.html` och välj **"Open with Live Server"** för att köra projektet lokalt.
+1. Clone the repository or download it as a ZIP file
+2. Open the project folder in **Visual Studio Code**
+3. Install the **Live Server** extension if you haven´t already
+4. Right click `index.html` and select **"Open with Live Server"** to run the project locally
